@@ -8,44 +8,44 @@ import (
 )
 
 func main() {
-	b, err := os.ReadFile("input.txt")
+	file, err := os.ReadFile("input.txt")
 
 	if err != nil {
 		log.Fatal("input file not found")
 	}
 
-	t := 0
-	for _, line := range strings.Split(string(b), "\n") {
-		l, r, ld, rd := 0, len(line)-1, 0, 0
-		for (ld == 0 || rd == 0) && len(line) > 0 {
-			if IsDigit(line[l]) && ld == 0 {
-				ld = ToInt(line[l])
+	total := 0
+	for _, line := range strings.Split(string(file), "\n") {
+		leftIndex, rightIndex, leftNumber, rightNumber := 0, len(line)-1, 0, 0
+		for (leftNumber == 0 || rightNumber == 0) && len(line) > 0 {
+			if IsDigit(line[leftIndex]) && leftNumber == 0 {
+				leftNumber = ToInt(line[leftIndex])
 			}
 
-			lw, found := checkWords(line, l)
-			if found && ld == 0 {
-				ld = lw
+			lw, found := checkWords(line, leftIndex)
+			if found && leftNumber == 0 {
+				leftNumber = lw
 			}
 
-			if IsDigit(line[r]) && rd == 0 {
-				rd = ToInt(line[r])
+			if IsDigit(line[rightIndex]) && rightNumber == 0 {
+				rightNumber = ToInt(line[rightIndex])
 			}
 
-			rw, found := checkWords(line, r)
-			if found && rd == 0 {
-				rd = rw
+			rw, found := checkWords(line, rightIndex)
+			if found && rightNumber == 0 {
+				rightNumber = rw
 			}
 
-			if ld != 0 && rd != 0 {
-				t += (ld * 10) + rd
+			if leftNumber != 0 && rightNumber != 0 {
+				total += (leftNumber * 10) + rightNumber
 				break
 			}
-			l++
-			r--
+			leftIndex++
+			rightIndex--
 		}
 	}
 
-	fmt.Printf("%v", t)
+	fmt.Printf("%v", total)
 }
 
 func checkWords(line string, i int) (int, bool) {
