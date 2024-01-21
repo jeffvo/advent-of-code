@@ -1,6 +1,6 @@
 # Advent of Code
 
-Advent of Code solutions for 2023, mostly in Go, to improve my go skills. Everyday will have to files for both part1 and 2. To run either part of the solution please comment out the other one to make it run.
+Advent of Code solutions for 2023, mostly in Go, to improve my go skills. Everyday will have the files for both part 1 and 2. To run either part of the solution please comment out the other one to make it run.
 
 
 <!--- advent_readme_stars table --->
@@ -10,4 +10,5 @@ Advent of Code solutions for 2023, mostly in Go, to improve my go skills. Everyd
 | :---: | :---: | :---: |
 | [Day 1](https://adventofcode.com/2023/day/1) | ⭐ | ⭐ |
 | [Day 2](https://adventofcode.com/2023/day/2) | ⭐ | ⭐ |
+| [Day 3](https://adventofcode.com/2023/day/3) | ⭐ | ⭐ |
 <!--- advent_readme_stars table --->

@@ -1,3 +1,3 @@
-module adventofcode/1
+module github.com/jeffvo/advent-of-code
 
 go 1.21
