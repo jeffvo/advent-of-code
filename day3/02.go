@@ -19,11 +19,11 @@ func main() {
 
 	total := 0
 
-	for y, line := range schematic {
-		for x, char := range line {
+	for x, line := range schematic {
+		for y, char := range line {
 
 			if char == "*" {
-				total += checkAround(schematic, y, x, len(schematic), len(schematic[y]))
+				total += checkAround(schematic, x, y, len(schematic), len(schematic[x]))
 			}
 		}
 	}
@@ -45,7 +45,7 @@ func createArraySchematic(file *[]byte) [][]string {
 	return characters
 }
 
-func checkAround(schematic [][]string, y int, x int, ylength int, xLength int) int {
+func checkAround(schematic [][]string, x int, y int, xLength int, yLength int) int {
 	positions := [][]int{
 		{-1, 0},  // Above
 		{1, 0},   // Below
@@ -60,11 +60,11 @@ func checkAround(schematic [][]string, y int, x int, ylength int, xLength int) i
 	firstValue, secondValue := 0, 0
 
 	for _, pos := range positions {
-		rowIndex, colIndex := y+pos[0], x+pos[1]
+		rowIndex, colIndex := x+pos[0], y+pos[1]
 
 		value := 0
 		str := ""
-		if rowIndex >= 0 && rowIndex < ylength && colIndex >= 0 && colIndex < xLength && isDigit(schematic[rowIndex][colIndex]) {
+		if rowIndex >= 0 && rowIndex < xLength && colIndex >= 0 && colIndex < yLength && isDigit(schematic[rowIndex][colIndex]) {
 			str = schematic[rowIndex][colIndex]
 			if colIndex-1 >= 0 && isDigit(schematic[rowIndex][colIndex-1]) {
 				str = schematic[rowIndex][colIndex-1] + str
@@ -74,10 +74,10 @@ func checkAround(schematic [][]string, y int, x int, ylength int, xLength int) i
 				}
 			}
 
-			if colIndex+1 < xLength && isDigit(schematic[rowIndex][colIndex+1]) {
+			if colIndex+1 < yLength && isDigit(schematic[rowIndex][colIndex+1]) {
 				str = str + schematic[rowIndex][colIndex+1]
 
-				if colIndex+2 < xLength && isDigit(schematic[rowIndex][colIndex+2]) {
+				if colIndex+2 < yLength && isDigit(schematic[rowIndex][colIndex+2]) {
 					str = str + schematic[rowIndex][colIndex+2]
 				}
 
@@ -95,7 +95,6 @@ func checkAround(schematic [][]string, y int, x int, ylength int, xLength int) i
 		}
 
 		if firstValue > 0 && secondValue > 0 {
-			fmt.Println(firstValue, " : ", secondValue, " lineNumber:", rowIndex)
 			return firstValue * secondValue
 		}
 	}

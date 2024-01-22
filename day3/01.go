@@ -20,11 +20,11 @@ func main() {
 	currentValue := 0
 	total := 0
 	hasCharAround := false
-	for y, line := range schematic {
-		for x, char := range line {
+	for x, line := range schematic {
+		for y, char := range line {
 			if !isDigit(char) {
 				if hasCharAround {
-					fmt.Println("currentNumber: ", currentValue, " line: ", y)
+					fmt.Println("currentNumber: ", currentValue, " line: ", x)
 					total += currentValue
 				}
 				hasCharAround = false
@@ -33,7 +33,7 @@ func main() {
 			}
 
 			if !hasCharAround {
-				hasCharAround = checkAround(schematic, y, x, len(schematic), len(schematic[y]))
+				hasCharAround = checkAround(schematic, x, y, len(schematic), len(schematic[x]))
 			}
 
 			value, _ := strconv.Atoi(char)
@@ -58,7 +58,7 @@ func createArraySchematic(file *[]byte) [][]string {
 	return characters
 }
 
-func checkAround(schematic [][]string, y int, x int, ylength int, xLength int) bool {
+func checkAround(schematic [][]string, x int, y int, xLength int, yLength int) bool {
 	positions := [][]int{
 		{-1, 0},  // Above
 		{1, 0},   // Below
@@ -71,9 +71,9 @@ func checkAround(schematic [][]string, y int, x int, ylength int, xLength int) b
 	}
 
 	for _, pos := range positions {
-		rowIndex, colIndex := y+pos[0], x+pos[1]
+		rowIndex, colIndex := x+pos[0], y+pos[1]
 
-		if rowIndex >= 0 && rowIndex < ylength && colIndex >= 0 && colIndex < xLength {
+		if rowIndex >= 0 && rowIndex < xLength && colIndex >= 0 && colIndex < yLength {
 			if schematic[rowIndex][colIndex] != "." && !isDigit(schematic[rowIndex][colIndex]) {
 				return true
 			}
